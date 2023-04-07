@@ -2,18 +2,18 @@ use crate::core::*;
 use crate::renderer::*;
 
 ///
-/// A material that renders the volume data in the [RaycastMaterial::voxels] using volume raycasting.
+/// A material that renders the volume data in the [VolumeRaycastingMaterial::voxels] using volume raycasting.
 /// This material should be applied to a cube with center in origo, for example [CpuMesh::cube].
 ///
 #[derive(Clone)]
-pub struct RaycastMaterial {
+pub struct VolumeRaycastingMaterial {
     /// The voxel data that defines the volume.
     pub voxels: std::sync::Arc<Texture3D>,
     /// The size of the cube that is used to render the voxel data. The texture is scaled to fill the entire cube.
     pub size: Vec3,
 }
 
-impl Material for RaycastMaterial {
+impl Material for VolumeRaycastingMaterial {
     fn fragment_shader(&self) -> FragmentShader {
         FragmentShader {
             source: include_str!("shaders/volume_raycasting_material.frag").to_string(),
@@ -42,7 +42,7 @@ impl Material for RaycastMaterial {
     }
 }
 
-impl FromCpuVoxelGrid for RaycastMaterial {
+impl FromCpuVoxelGrid for VolumeRaycastingMaterial {
     fn from_cpu_voxel_grid(context: &Context, cpu_voxel_grid: &CpuVoxelGrid) -> Self {
         Self {
             voxels: std::sync::Arc::new(Texture3D::new(context, &cpu_voxel_grid.voxels)),
