@@ -55,6 +55,11 @@ mod isosurface_material;
 #[doc(inline)]
 pub use isosurface_material::*;
 
+
+mod raycast_material;
+#[doc(inline)]
+pub use raycast_material::*;
+
 use std::sync::Arc;
 
 ///
